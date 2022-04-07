@@ -1,0 +1,70 @@
+{
+  "root": "apps/weather",
+  "sourceRoot": "apps/weather/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/weather",
+        "index": "apps/weather/src/index.html",
+        "baseHref": "/",
+        "main": "apps/weather/src/main.tsx",
+        "polyfills": "apps/weather/src/polyfills.ts",
+        "tsConfig": "apps/weather/tsconfig.app.json",
+        "assets": ["apps/weather/src/favicon.ico", "apps/weather/src/assets"],
+        "styles": ["apps/weather/src/styles.scss"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/weather/src/environments/environment.ts",
+              "with": "apps/weather/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "options": {
+        "buildTarget": "weather:build",
+        "hmr": true
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "weather:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/weather/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/weather"],
+      "options": {
+        "jestConfig": "apps/weather/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
