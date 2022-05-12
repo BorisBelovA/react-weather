@@ -1,0 +1,24 @@
+.LocationInfoWrapper {
+  display: flex;   
+  flex-direction: column;
+  color: #fff;
+}
+
+.LocationInfoCity {
+  font-size: 32px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.LocationInfoConditionWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.LocationInfoConditionIcon {
+  
+}
+
+.LocationInfoConditionText {
+  font-size: 18px;
+}

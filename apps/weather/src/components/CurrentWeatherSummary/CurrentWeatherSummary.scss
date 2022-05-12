@@ -1,0 +1,12 @@
+.CurrentWeatherSummary {
+  color: #fff;
+
+  & p {
+    margin: 0.5rem 0;
+  }
+
+  &Temperature {
+    font-size: 24px;
+    font-weight: bold;
+  }
+}

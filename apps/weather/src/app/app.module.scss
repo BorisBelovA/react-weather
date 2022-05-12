@@ -1,1 +1,8 @@
 /* Your styles goes here. */
+.weather-widget-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
