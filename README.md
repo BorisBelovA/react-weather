@@ -1,9 +1,27 @@
 
 
-# Weather
+<h1 align="center">React weather app</h1>
 
-This project was generated using [Nx](https://nx.dev).
+<p align="center">
+  <a href="https://github.com/adisreyaj/moovee/blob/master/LICENSE.md">
+    <img alt="License: MIT License" src="https://img.shields.io/badge/license-MIT License-yellow.svg" target="_blank" />
+  </a>
+    <img src="https://img.shields.io/badge/React-v18-blue" alt="angular">
+  </a>
+</p>
 
+> A small and convenient widget for viewing the weather in your city. Don't get caught in the rain ;)
+
+# Main screen
+![Main screen](./assets/main-screen.png 'Main screen')
+
+## 🔥 Features
+- Powered by React
+- Powered by [WeatherApi](https://www.weatherapi.com/)
+
+## 🚀 Usage
+
+<!-- 
 <p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
 
 🔎 **Smart, Fast and Extensible Build System**
@@ -91,4 +109,4 @@ Nx Cloud pairs with Nx in order to enable you to build and test code more rapidl
 
 Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
 
-Visit [Nx Cloud](https://nx.app/) to learn more.
+Visit [Nx Cloud](https://nx.app/) to learn more. -->
