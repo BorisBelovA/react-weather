@@ -7,6 +7,7 @@ import './Weather.scss';
 import LocationInfo from '../Location-info/Location-info';
 import CurrentWeatherSummary from '../CurrentWeatherSummary/CurrentWeatherSummary';
 import ForecastDays from '../Forecast-days/Forecast-days';
+import { environment } from 'src/environments/environment';
 
 interface WeatherProps {}
 type Props = {};
@@ -93,7 +94,7 @@ class Weather extends React.Component<Props, State> {
   
   public override componentDidMount(): void {
     this.setState({ ...this.state, loading: true });
-    const apiUrl ='http://api.weatherapi.com/v1/forecast.json?key=fa34f396a65145038a7190124220704&q=Moscow&days=5&aqi=no&alerts=no'
+    const apiUrl =`http://api.weatherapi.com/v1/forecast.json?key=${environment.REACT_APP_WEATHER_API_KEY}&q=Moscow&days=5&aqi=no&alerts=no`
     fetch(apiUrl)
       .then(response => response.json())
       .then(
