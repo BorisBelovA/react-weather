@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ForecastApiResponse } from 'dto';
 import * as models from 'models';
 import * as dto from 'dto';
@@ -9,7 +9,7 @@ import CurrentWeatherSummary from '../CurrentWeatherSummary/CurrentWeatherSummar
 import ForecastDays from '../Forecast-days/Forecast-days';
 import { environment } from 'src/environments/environment';
 
-interface WeatherProps {}
+interface WeatherProps { }
 type Props = {};
 
 const mapLocationToModel = (location: dto.Location): models.Location => ({
@@ -83,57 +83,60 @@ type State = {
   forecastDays: models.Forecastday[]
 };
 
-class Weather extends React.Component<Props, State> {
-  public override readonly state: State = {
+const Weather = () => {
+
+  const [state, setState] = useState<State>({
     loading: true,
     location: null,
     condition: null,
     current: null,
     forecastDays: []
-  };
-  
-  public override componentDidMount(): void {
-    this.setState({ ...this.state, loading: true });
-    const apiUrl =`http://api.weatherapi.com/v1/forecast.json?key=${environment.REACT_APP_WEATHER_API_KEY}&q=Moscow&days=5&aqi=no&alerts=no`
+  });
+
+  useEffect(() => {
+    setState({ ...state, loading: true });
+    const apiUrl = `http://api.weatherapi.com/v1/forecast.json?key=${environment.REACT_APP_WEATHER_API_KEY}&q=Moscow&days=5&aqi=no&alerts=no`
     fetch(apiUrl)
       .then(response => response.json())
       .then(
-        (result: ForecastApiResponse) => { 
-          console.log(result)
-          this.setState({
-            ...this.state,
+        (result: ForecastApiResponse) => {          
+          setState({
+            ...state,
+            loading: false,
             location: mapLocationToModel(result.location),
             condition: mapConditionToModel(result.current.condition),
             current: mapCurrentToModel(result.current),
             forecastDays: result.forecast.forecastday.map(d => mapForecastDayToModel(d))
           })
         },
-        (error) => {console.error(error)},
+        (error) => {
+          console.error(error)
+          setState({ ...state, loading: false})
+        },
       )
-      .finally(() => {
-        this.setState({ ...this.state, loading: false })
-      })
-  }
+  }, []);
 
-  public override render() {
-    if (this.state.loading) {
-      return (<div className="Weather">
-        Loading
-      </div> )
-    }
-    
-    return (
+  const template = state.location 
+    && state.condition
+    && state.current
+    ? (
       <div className="Weather">
         <div className='WeatherCurrentDay'>
-          <LocationInfo city={this.state.location!.name}
-            icon={this.state.condition!.icon}
-            conditionText={this.state.condition!.text}></LocationInfo>
-          <CurrentWeatherSummary conditions={this.state.current!}></CurrentWeatherSummary>
+          <LocationInfo city={state.location!.name}
+            icon={state.condition!.icon}
+            conditionText={state.condition!.text}></LocationInfo>
+          <CurrentWeatherSummary conditions={state.current!}></CurrentWeatherSummary>
         </div>
-        <ForecastDays forecastDays={this.state.forecastDays}></ForecastDays>
-      </div> 
+        <ForecastDays forecastDays={state.forecastDays}></ForecastDays>
+      </div>
     )
-  }
+    : (
+      <div>
+        <p>Загрузка</p>
+      </div>
+    )
+
+  return template;
 }
 
 export default Weather;
